@@ -1,0 +1,19 @@
+/* Viewport-driven Device modes. Mirrors fig-tokens.css [data-mode] blocks so pages
+   respond automatically. Explicit data-mode on :root still wins (higher specificity). */
+@media (min-width:768px){:root{
+  --text-size-title-1:var(--primitives-text-font-size-title1);--text-size-title-2:var(--primitives-text-font-size-title2);--text-size-title-3:var(--primitives-text-font-size-title3);
+  --text-size-display:var(--primitives-text-font-size-headline);--text-size-h1:var(--primitives-text-font-size-title3);--text-size-h2:var(--primitives-text-font-size-headline);--text-size-h3:var(--primitives-text-font-size-body);--text-size-h4:var(--primitives-text-font-size-callout);--text-size-h5:var(--primitives-text-font-size-subheadline);
+  --text-size-body-l:var(--primitives-text-font-size-subheadline);--text-size-body-r:var(--primitives-text-font-size-footnote);--text-size-body-s:var(--primitives-text-font-size-caption1);
+  --radius-container:var(--primitives-radius-radius-huge);--radius-large:var(--primitives-radius-radius-extra-large);--radius-medium:var(--primitives-radius-radius-large);--radius-small:var(--primitives-radius-radius-regular);
+  --spacing-gap-large:var(--primitives-spacing-margin-huge);--spacing-gap-medium:var(--primitives-spacing-margin-large);--spacing-gap-small:var(--primitives-spacing-gap-medium);--spacing-gap-x-large:var(--primitives-spacing-margin-max);
+  --spacing-padding-container:var(--primitives-spacing-margin-max);--spacing-padding-smart:var(--primitives-spacing-gap-huge);
+  --grid-columns:var(--layout-tablet-count);--grid-gutter:calc(var(--layout-tablet-gutter) * 1px);--grid-margin:calc(var(--layout-tablet-margin) * 1px);
+}}
+@media (min-width:1200px){:root{
+  --text-size-title-1:var(--primitives-text-font-size-largetitle);--text-size-title-2:var(--primitives-text-font-size-title1);--text-size-title-3:var(--primitives-text-font-size-title2);
+  --text-size-display:var(--primitives-text-font-size-title3);--text-size-h1:var(--primitives-text-font-size-title2);--text-size-h2:var(--primitives-text-font-size-title3);--text-size-h3:var(--primitives-text-font-size-headline);--text-size-h4:var(--primitives-text-font-size-body);--text-size-h5:var(--primitives-text-font-size-callout);
+  --radius-container:var(--primitives-radius-radius-max);--radius-large:var(--primitives-radius-radius-huge);
+  --spacing-gap-large:var(--primitives-spacing-margin-max);--spacing-gap-medium:var(--primitives-spacing-margin-extra-large);--spacing-gap-small:var(--primitives-spacing-margin-regular);--spacing-gap-x-large:var(--primitives-spacing-margin-super);
+  --spacing-padding-container:var(--primitives-spacing-margin-max-ext);--spacing-padding-smart:var(--primitives-spacing-margin-max);
+  --grid-columns:var(--layout-desktop-count);--grid-gutter:calc(var(--layout-desktop-gutter) * 1px);--grid-margin:calc(var(--layout-desktop-margin) * 1px);
+}}

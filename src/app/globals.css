@@ -1,0 +1,46 @@
+/* Order matters: Tailwind's preflight sits in @layer base, so the unlayered reference
+   stylesheet (site.css) always wins over it — exactly like the original page. */
+@import "tailwindcss";
+@import "../styles/tokens/fig-tokens.css";
+@import "../styles/tokens/semantic.css";
+@import "../styles/tokens/responsive.css";
+@import "../styles/site.css";
+
+/* dark: utilities follow the site's theme switch, not the OS setting */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* Semantic tokens for new Tailwind code — all point at the design-system aliases in site.css,
+   so bg-primary / text-ink / rounded-card etc. stay in sync with the audited palette. */
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-600);
+  --color-primary-deep: var(--primary-700);
+  --color-primary-muted: var(--primary-200);
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-600);
+  --color-gold-muted: var(--gold-100);
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-error: var(--error);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --radius-card: var(--r-card);
+  --radius-container: var(--r-container);
+  --radius-pill: var(--r-pill);
+  --shadow-card: var(--shadow-card);
+  --ease-brand: var(--ease-out);
+  --container-site: var(--container);
+}
+
+/* load timeline targets stay hidden until the motion layer has applied their "from" state (see layout PREPAINT_JS) */
+.motion-pending .site-header .header-row > *,
+.motion-pending .hc-top,
+.motion-pending .hc-cards {
+  visibility: hidden;
+}

@@ -1,0 +1,89 @@
+/* Semantic, ready-to-use aliases over the Figma variables in fig-tokens.css.
+   Figma FLOATs are unitless; these convert them to px. Default :root = Mobile mode;
+   responsive.css switches to Tablet/Desktop values by viewport. */
+:root{
+  /* Brand */
+  --brand-purple:var(--primitives-color-primary-light);      /* #5700AE — logo ground */
+  --brand-purple-dark:var(--primitives-color-primary-dark);  /* #46008B */
+  --brand-purple-deep:var(--primitives-color-primary-highcontrast); /* #340068 */
+  --brand-purple-muted:var(--primitives-color-primary-muted);/* #DDCCEF */
+  --brand-orange:var(--primitives-color-secondary-light);    /* #FBB040 — logo symbol */
+  --brand-orange-dark:var(--primitives-color-secondary-dark);
+  --brand-orange-deep:var(--primitives-color-secondary-highcontrast);
+  --brand-orange-muted:var(--primitives-color-secondary-muted);
+
+  /* Families */
+  --font-heading:"Almarai",var(--font-cairo),system-ui,sans-serif;
+  --font-body:"Devlin",var(--font-plex),system-ui,sans-serif;
+  --font-weight-regular:400;--font-weight-medium:500;--font-weight-semibold:600;--font-weight-bold:700;
+
+  /* Type scale (px) — follows Device mode */
+  --fs-title-1:calc(var(--text-size-title-1) * 1px);
+  --fs-title-2:calc(var(--text-size-title-2) * 1px);
+  --fs-title-3:calc(var(--text-size-title-3) * 1px);
+  --fs-display:calc(var(--text-size-display) * 1px);
+  --fs-h1:calc(var(--text-size-h1) * 1px);
+  --fs-h2:calc(var(--text-size-h2) * 1px);
+  --fs-h3:calc(var(--text-size-h3) * 1px);
+  --fs-h4:calc(var(--text-size-h4) * 1px);
+  --fs-h5:calc(var(--text-size-h5) * 1px);
+  --fs-body-l:calc(var(--text-size-body-l) * 1px);
+  --fs-body:calc(var(--text-size-body-r) * 1px);
+  --fs-body-s:calc(var(--text-size-body-s) * 1px);
+  --fs-caption:calc(var(--text-size-caption) * 1px);
+
+  /* Spacing (px) — primitive scale */
+  --space-4:calc(var(--primitives-spacing-gap-extra-small) * 1px);
+  --space-8:calc(var(--primitives-spacing-margin-compact) * 1px);
+  --space-12:calc(var(--primitives-spacing-gap-medium) * 1px);
+  --space-16:calc(var(--primitives-spacing-margin-regular) * 1px);
+  --space-24:calc(var(--primitives-spacing-margin-large) * 1px);
+  --space-32:calc(var(--primitives-spacing-margin-extra-large) * 1px);
+  --space-40:calc(var(--primitives-spacing-gap-huge) * 1px);
+  --space-48:calc(var(--primitives-spacing-margin-huge) * 1px);
+  --space-64:calc(var(--primitives-spacing-margin-max) * 1px);
+  --space-80:calc(var(--primitives-spacing-gap-max) * 1px);
+  --space-96:calc(var(--primitives-spacing-margin-super) * 1px);
+  --space-128:calc(var(--primitives-spacing-margin-max-ext) * 1px);
+  --space-160:calc(var(--primitives-spacing-gap-ultra) * 1px);
+  --space-192:calc(var(--primitives-spacing-margin-ultra) * 1px);
+  /* Spacing (px) — semantic, follows Device mode */
+  --gap-xs:calc(var(--spacing-gap-xy-small) * 1px);
+  --gap-sm:calc(var(--spacing-gap-small) * 1px);
+  --gap-md:calc(var(--spacing-gap-medium) * 1px);
+  --gap-lg:calc(var(--spacing-gap-large) * 1px);
+  --gap-xl:calc(var(--spacing-gap-x-large) * 1px);
+  --pad-container:calc(var(--spacing-padding-container) * 1px);
+  --pad-smart:calc(var(--spacing-padding-smart) * 1px);
+
+  /* Radius (px) */
+  --r-small:calc(var(--radius-small) * 1px);
+  --r-medium:calc(var(--radius-medium) * 1px);
+  --r-large:calc(var(--radius-large) * 1px);
+  --r-container:calc(var(--radius-container) * 1px);
+  --r-pill:calc(var(--radius-pill) * 1px);
+  --r-button:calc(var(--components-button-radius) * 1px);
+  --r-input:calc(var(--components-input-radius) * 1px);
+  --r-card:calc(var(--components-card-radius) * 1px);
+
+  /* Shadows */
+  --shadow-low:0 calc(var(--effect-shadow-low-y) * 1px) calc(var(--effect-shadow-low-blur) * 1px) var(--effect-shadow-low-color);
+  --shadow-high:0 calc(var(--effect-shadow-high-y) * 1px) calc(var(--effect-shadow-high-blur) * 1px) var(--effect-shadow-high-color);
+  --shadow-sm:0 1px 2px var(--effect-shadow-compact);
+  --shadow-md:0 4px 6px var(--effect-shadow-regular);
+  --shadow-lg:0 10px 16px var(--effect-shadow-large);
+  --shadow-xl:0 20px 24px var(--effect-shadow-extra-large);
+  --shadow-max:0 24px 48px var(--effect-shadow-max);
+  --shadow-card:0 calc(var(--components-card-elevation-y) * 1px) calc(var(--components-card-elevation-blur) * 1px) var(--components-card-elevation-color);
+
+  /* Layout */
+  --grid-columns:var(--layout-mobile-count); /* @kind other */
+  --grid-gutter:calc(var(--layout-mobile-gutter) * 1px);
+  --grid-margin:calc(var(--layout-mobile-margin) * 1px);
+
+  /* Motion (not defined in Figma — conservative defaults) */
+  --ease-out:cubic-bezier(.2,.7,.2,1); /* @kind other */
+  --dur-fast:120ms; /* @kind other */
+  --dur-base:200ms; /* @kind other */
+  --dur-slow:360ms; /* @kind other */
+}

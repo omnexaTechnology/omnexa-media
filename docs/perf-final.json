@@ -1,0 +1,122 @@
+{
+  "/ar@390": {
+    "firstViewMB": {
+      "other": 0.05,
+      "font": 0.4,
+      "image": 0.29,
+      "css": 0.07,
+      "js": 0.24,
+      "video": 1.75,
+      "total": 2.82
+    },
+    "afterFullScrollMB": {
+      "other": 0.05,
+      "font": 0.4,
+      "image": 0.43,
+      "css": 0.07,
+      "js": 0.26,
+      "video": 1.75,
+      "total": 2.98
+    },
+    "measured": "2026-10-27T12:49:10.374Z"
+  },
+  "/ar@1440": {
+    "firstViewMB": {
+      "other": 0.05,
+      "font": 0.4,
+      "image": 0.29,
+      "css": 0.07,
+      "js": 0.24,
+      "video": 3.86,
+      "total": 4.93
+    },
+    "afterFullScrollMB": {
+      "other": 0.05,
+      "font": 0.4,
+      "image": 0.59,
+      "css": 0.07,
+      "js": 0.26,
+      "video": 3.86,
+      "total": 5.25
+    },
+    "measured": "2026-10-27T12:49:30.374Z"
+  },
+  "/ar/work/nabaa-photo@390": {
+    "firstViewMB": {
+      "other": 0.02,
+      "font": 0.4,
+      "image": 0.34,
+      "css": 0.07,
+      "js": 0.24,
+      "total": 1.08
+    },
+    "afterFullScrollMB": {
+      "other": 0.02,
+      "font": 0.4,
+      "image": 0.47,
+      "css": 0.07,
+      "js": 0.24,
+      "total": 1.21
+    },
+    "measured": "2026-10-27T12:49:50.289Z"
+  },
+  "/ar/work/nabaa-photo@1440": {
+    "firstViewMB": {
+      "other": 0.02,
+      "font": 0.4,
+      "image": 0.75,
+      "css": 0.07,
+      "js": 0.24,
+      "total": 1.49
+    },
+    "afterFullScrollMB": {
+      "other": 0.02,
+      "font": 0.4,
+      "image": 1.11,
+      "css": 0.07,
+      "js": 0.24,
+      "total": 1.85
+    },
+    "measured": "2026-10-27T12:50:10.239Z"
+  },
+  "/ar/work/og-edit@390": {
+    "firstViewMB": {
+      "other": 0.02,
+      "font": 0.4,
+      "image": 0.28,
+      "js": 0.24,
+      "css": 0.07,
+      "total": 1.01
+    },
+    "afterFullScrollMB": {
+      "other": 0.02,
+      "font": 0.4,
+      "image": 0.3,
+      "js": 0.24,
+      "css": 0.07,
+      "video": 7.1,
+      "total": 8.14
+    },
+    "measured": "2026-10-27T12:50:30.138Z"
+  },
+  "/ar/work/og-edit@1440": {
+    "firstViewMB": {
+      "other": 0.02,
+      "font": 0.4,
+      "image": 0.28,
+      "css": 0.07,
+      "js": 0.24,
+      "total": 1.01
+    },
+    "afterFullScrollMB": {
+      "other": 0.02,
+      "font": 0.4,
+      "image": 0.3,
+      "css": 0.07,
+      "js": 0.24,
+      "video": 8.35,
+      "total": 9.38
+    },
+    "measured": "2026-10-27T12:50:50.055Z"
+  }
+}
