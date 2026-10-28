@@ -59,6 +59,69 @@ test.describe("routes", () => {
   });
 });
 
+/* SEO metadata: the build under test must use NEXT_PUBLIC_SITE_URL=https://media.omnexa.sa (the production origin) */
+const ORIGIN = "https://media.omnexa.sa";
+const SEO_ROUTES = ["/ar", "/en", "/ar/services/ads", "/en/services/social", "/en/work/eco-web"];
+
+test.describe("seo metadata", () => {
+  for (const route of SEO_ROUTES) {
+    test(`metadata ${route}`, async ({ page }) => {
+      await page.goto(route);
+      const html = await page.content();
+      expect(html).not.toContain("localhost");
+      const attr = (sel: string, a = "content") => page.locator(sel).first().getAttribute(a);
+      const l = route.slice(1, 3), path = route.slice(3);
+      const canonical = await attr('link[rel="canonical"]', "href");
+      expect(canonical).toBe(`${ORIGIN}${route}`);
+      // reciprocal alternates: each language points at its own twin of this path, x-default at Arabic
+      expect(await attr('link[rel="alternate"][hreflang="ar"]', "href")).toBe(`${ORIGIN}/ar${path}`);
+      expect(await attr('link[rel="alternate"][hreflang="en"]', "href")).toBe(`${ORIGIN}/en${path}`);
+      expect(await attr('link[rel="alternate"][hreflang="x-default"]', "href")).toBe(`${ORIGIN}/ar${path}`);
+      expect(await attr('meta[property="og:url"]')).toBe(canonical);
+      expect(await attr('meta[property="og:locale"]')).toBe(l === "ar" ? "ar_SA" : "en_US");
+      expect(await attr('meta[property="og:type"]')).toBe("website");
+      // social title/description are this page's own, not the homepage's
+      const title = await page.title();
+      expect(await attr('meta[property="og:title"]')).toBe(title);
+      expect(await attr('meta[name="twitter:title"]')).toBe(title);
+      const desc = await attr('meta[name="description"]');
+      expect(desc).toBeTruthy();
+      expect(await attr('meta[property="og:description"]')).toBe(desc);
+      expect(await attr('meta[name="twitter:description"]')).toBe(desc);
+      const img = await attr('meta[property="og:image"]');
+      expect(img?.startsWith(`${ORIGIN}/`)).toBe(true);
+      expect(await attr('meta[name="twitter:image"]')).toBe(img);
+      expect((await page.request.get(new URL(img!).pathname)).status()).toBe(200);
+    });
+  }
+
+  test("default share image is a 1200x630 JPEG", async ({ page, request }) => {
+    await page.goto("/en/services/social");
+    expect(await page.locator('meta[property="og:image"]').getAttribute("content")).toBe(`${ORIGIN}/assets/covers/og.jpg`);
+    expect(await page.locator('meta[property="og:image:width"]').getAttribute("content")).toBe("1200");
+    expect(await page.locator('meta[property="og:image:height"]').getAttribute("content")).toBe("630");
+    const res = await request.get("/assets/covers/og.jpg");
+    expect(res.status()).toBe(200);
+    expect(res.headers()["content-type"]).toBe("image/jpeg");
+    // JPEG SOF0/SOF2 frame header holds height then width
+    const b = await res.body();
+    let i = 2;
+    while (i < b.length && !(b[i] === 0xff && (b[i + 1] === 0xc0 || b[i + 1] === 0xc2))) i += 2 + b.readUInt16BE(i + 2);
+    expect([b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)]).toEqual([1200, 630]);
+  });
+
+  test("robots.txt and sitemap.xml use the production origin", async ({ request }) => {
+    const robots = await (await request.get("/robots.txt")).text();
+    expect(robots).not.toContain("localhost");
+    expect(robots).toContain(`Sitemap: ${ORIGIN}/sitemap.xml`);
+    const sitemap = await (await request.get("/sitemap.xml")).text();
+    expect(sitemap).not.toContain("localhost");
+    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    expect(locs.length).toBeGreaterThan(0);
+    expect(locs.filter((u) => !u.startsWith(`${ORIGIN}/`))).toEqual([]);
+  });
+});
+
 test.describe("responsive", () => {
   for (const l of ["ar", "en"]) {
     test(`no horizontal scroll — ${l}`, async ({ page, browserName }) => {

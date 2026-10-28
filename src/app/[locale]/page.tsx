@@ -1,5 +1,7 @@
-import { setRequestLocale } from "next-intl/server";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { AppLocale } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/seo";
 import Hero from "@/components/sections/Hero";
 import Platforms from "@/components/sections/Platforms";
 import Services from "@/components/sections/Services";
@@ -10,6 +12,12 @@ import Clients from "@/components/sections/Clients";
 import Stories from "@/components/sections/Stories";
 import SectionHead from "@/components/ui/SectionHead";
 import FaqList from "@/components/sections/Faq";
+
+export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
+  const locale = (await params).locale as AppLocale;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  return pageMetadata({ locale, path: "", title: t("title"), description: t("desc") });
+}
 
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
