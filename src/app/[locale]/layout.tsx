@@ -10,6 +10,7 @@ import Footer from "@/components/layout/Footer";
 import Fab from "@/components/layout/Fab";
 import Contact from "@/components/sections/Contact";
 import MotionLayer from "@/components/motion/MotionLayer";
+import Analytics from "@/components/layout/Analytics";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -54,6 +55,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
           <Footer />
           <Fab />
           <MotionLayer />
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>
