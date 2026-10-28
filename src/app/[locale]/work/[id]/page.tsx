@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { WORKS, SOCIAL, type Locale } from "@/content/data";
 import { client, sec, sector, svcPageOf, wCat, wClient, wName, wSec, wSub, work, workMedia } from "@/content/site";
@@ -25,7 +25,8 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/work/[id
   if (!w) return {};
   const m = workMedia(w);
   return pageMetadata({
-    locale: l, path: `/work/${id}`, title: `${wName(w, l)} | ${SITE_NAME[l]}`, description: w[l].d || sec(w.cat)[l].d,
+    // works without their own text fall back to the category text, prefixed with the work name so it stays unique
+    locale: l, path: `/work/${id}`, title: `${wName(w, l)} | ${SITE_NAME[l]}`, description: w[l].d || `${wName(w, l)}. ${sec(w.cat)[l].d}`,
     image: m.cover ?? undefined, imageAlt: wName(w, l),
   });
 }
@@ -47,7 +48,7 @@ export default async function ProjectPage({ params }: PageProps<"/[locale]/work/
   setRequestLocale(l);
   const w = work(id);
   if (!w) notFound();
-  if (svcPageOf(w.id)) redirect(`/${l}/services/${svcPageOf(w.id)}`);
+  if (svcPageOf(w.id)) permanentRedirect(`/${l}/services/${svcPageOf(w.id)}`); // 308: the service page is the canonical home
   const t = await getTranslations();
 
   const g = sec(w.cat), m = workMedia(w), desc = w[l].d;

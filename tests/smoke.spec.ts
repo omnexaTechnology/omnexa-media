@@ -54,6 +54,12 @@ test.describe("routes", () => {
     await expect(page).toHaveURL(/\/ar$/);
     await page.goto("/ar/work/omnexa-ads");
     await expect(page).toHaveURL(/\/ar\/services\/ads$/);
+    // work entries shown as service pages move permanently (308), so search engines consolidate on the service URL
+    for (const [w, s] of [["omnexa-ads", "ads"], ["omnexa-social", "social"], ["omnexa-report", "report"]]) {
+      const r = await page.request.get(`/en/work/${w}`, { maxRedirects: 0 });
+      expect(r.status()).toBe(308);
+      expect(r.headers()["location"]).toMatch(new RegExp(`/en/services/${s}$`));
+    }
     expect((await page.goto("/ar/work/does-not-exist"))?.status()).toBe(404);
     expect((await page.goto("/en/services/nope"))?.status()).toBe(404);
   });
@@ -108,6 +114,15 @@ test.describe("seo metadata", () => {
     let i = 2;
     while (i < b.length && !(b[i] === 0xff && (b[i + 1] === 0xc0 || b[i + 1] === 0xc2))) i += 2 + b.readUInt16BE(i + 2);
     expect([b.readUInt16BE(i + 7), b.readUInt16BE(i + 5)]).toEqual([1200, 630]);
+  });
+
+  test("no Google tag off the production host", async ({ page }) => {
+    const hits: string[] = [];
+    page.on("request", (r) => { if (/googletagmanager|google-analytics/.test(r.url())) hits.push(r.url()); });
+    await page.goto("/ar");
+    await page.waitForTimeout(1500);
+    expect(hits).toEqual([]);
+    expect(await page.evaluate(() => typeof (window as { gtag?: unknown }).gtag)).toBe("undefined");
   });
 
   test("robots.txt and sitemap.xml use the production origin", async ({ request }) => {

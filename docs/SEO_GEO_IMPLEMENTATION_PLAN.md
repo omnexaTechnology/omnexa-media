@@ -139,6 +139,28 @@ Review weekly for the first month after Phase 1, then monthly. Note each deploy 
 
 ---
 
+## Status check — 2026-10-28 (read-only; nothing was changed in Google)
+
+| Item | Finding |
+|---|---|
+| Phase 1 code | Merged to `master` (PR #1, `1919b7b`). **Live site still serves localhost URLs**, so the new build is not deployed yet. |
+| Analytics on live site | **None.** No `gtag`, GTM, `dataLayer` or Google requests on `https://media.omnexa.sa/ar`. |
+| GA4 property `a401818072p546423044` | One web stream: `www.omnexa.sa`, Measurement ID `G-HCVNPRQZJC`. Shows "Data collection isn't active"; no data in 48 h. No stream for `media.omnexa.sa`. |
+| Search Console (account `mohamed1.shamseldeen@gmail.com`) | Only property: `https://omnexa.sa/` (URL-prefix; user, **not a verified owner**; added 27 Oct 2026). It does **not** cover `media.omnexa.sa`. `https://media.omnexa.sa/` → "no access". `sc-domain:omnexa.sa` → "no access" (either it doesn't exist or this account isn't on it). The generative-AI performance report is available in the UI for `omnexa.sa`. |
+| Orphan pages (#16) | **Not reproduced.** Every sitemap URL is linked by `<a href>` from at least one other built page. |
+| Thin work pages | None found by heuristic (empty placeholder, or no description + <2 images + no video). |
+| Duplicate titles | 3 pairs, all `/ar/work/omnexa-{ads,social,report}` vs. their service page. These are redirect stubs; a 308 removes them. |
+| Duplicate descriptions | 2 pairs (ar + en): two print/packaging work pages fall back to the same category description. |
+
+### Phase 3, split by dependency
+
+| Sub-phase | Work | Depends on | Who |
+|---|---|---|---|
+| **3A — Search Console access** ★ | Find out whether `sc-domain:omnexa.sa` exists under another account. If yes → add `mohamed1.shamseldeen@gmail.com` as Owner/Full user. If no → create a Domain property `omnexa.sa` (DNS TXT at the registrar; best) **or** a URL-prefix property `https://media.omnexa.sa/` verified with a meta tag that we ship in code. | Owner / DNS admin decision | Owner (+ me for the meta-tag path) |
+| **3B — Small code fixes** | 308 permanent redirects for `omnexa-*` work stubs; unique fallback descriptions for the 2 print pages (append client name); optional `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` support. | Nothing | Me |
+| **3C — GA4 install** | Add the Google tag once (`@next/third-parties/google`) from `NEXT_PUBLIC_GA_ID`; decide `G-HCVNPRQZJC` (shared stream, filter by hostname) vs. a dedicated `media.omnexa.sa` stream/property; conversion events (`booking_submit`, `whatsapp_click`, `phone_click`, `email_click`) without PII. | Owner choice of stream + privacy/consent decision | Me (code) + owner |
+| **3D — After deploy** | Re-check live site for localhost; GSC baseline export; submit sitemap; URL Inspection + request indexing for home + 3 service pages ×2 locales; verify GA4 Realtime. | Deploy + 3A | Me (with access) |
+
 ## Owner inputs (blocking items marked ★)
 
 1. ★ Access to the hosting dashboard (or someone to set `NEXT_PUBLIC_SITE_URL` and redeploy).

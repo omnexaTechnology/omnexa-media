@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { SVCS, type Locale } from "@/content/data";
 import { waHref } from "@/content/site";
+import { track } from "@/components/layout/Analytics";
 import BtnInner from "@/components/ui/BtnInner";
 import Ms from "@/components/ui/Ms";
 
@@ -67,6 +68,7 @@ export default function Booking() {
       ...(nt ? [nt] : []),
       `${fmt(day!, FULL)} — ${time} (Asia/Riyadh)`,
     ].join("\n");
+    track("booking_submit", { service: svc?.id }); // no name/phone/email: only that a booking was sent and for which service
     window.open(waHref(msg), "_blank", "noopener");
   };
 
