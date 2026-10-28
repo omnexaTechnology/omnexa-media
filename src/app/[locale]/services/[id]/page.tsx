@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SVCPAGES, type Locale } from "@/content/data";
 import { routing } from "@/i18n/routing";
+import { pageMetadata, SITE_NAME } from "@/lib/seo";
 import DetailHero from "@/components/project/DetailHero";
 import EndCta from "@/components/project/EndCta";
 import SvcEffects from "@/components/project/SvcEffects";
@@ -24,11 +25,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/services
   const { locale, id } = await params;
   const P = PAGES[id], l = locale as Locale;
   if (!P) return {};
-  return {
-    title: `${P[l].h1} | ${l === "ar" ? "أومنيكسا ميديا" : "Omnexa Media"}`,
-    description: P[l].lead,
-    alternates: { canonical: `/${l}/services/${id}`, languages: { ar: `/ar/services/${id}`, en: `/en/services/${id}` } },
-  };
+  return pageMetadata({ locale: l, path: `/services/${id}`, title: `${P[l].h1} | ${SITE_NAME[l]}`, description: P[l].lead });
 }
 
 /* the sections of each service page, in order (svcpages.js renderer v44) */

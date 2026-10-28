@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { WORKS, SOCIAL, type Locale } from "@/content/data";
 import { client, sec, sector, svcPageOf, wCat, wClient, wName, wSec, wSub, work, workMedia } from "@/content/site";
 import { routing } from "@/i18n/routing";
+import { pageMetadata, SITE_NAME } from "@/lib/seo";
 import DetailHero from "@/components/project/DetailHero";
 import Showcase, { shapeOf } from "@/components/project/Showcase";
 import VideoStage from "@/components/project/VideoStage";
@@ -23,12 +24,10 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/work/[id
   const w = work(id), l = locale as Locale;
   if (!w) return {};
   const m = workMedia(w);
-  return {
-    title: `${wName(w, l)} | ${l === "ar" ? "أومنيكسا ميديا" : "Omnexa Media"}`,
-    description: w[l].d || sec(w.cat)[l].d,
-    alternates: { canonical: `/${l}/work/${id}`, languages: { ar: `/ar/work/${id}`, en: `/en/work/${id}` } },
-    openGraph: m.cover ? { images: [m.cover] } : undefined,
-  };
+  return pageMetadata({
+    locale: l, path: `/work/${id}`, title: `${wName(w, l)} | ${SITE_NAME[l]}`, description: w[l].d || sec(w.cat)[l].d,
+    image: m.cover ?? undefined, imageAlt: wName(w, l),
+  });
 }
 
 /* title + text of the video section, per type of video (app.js vidCopy) */

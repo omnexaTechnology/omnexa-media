@@ -16,25 +16,13 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+/* Site-wide defaults only; each page sets its own canonical/alternates/social metadata via pageMetadata (lib/seo.ts),
+   so no page can inherit the homepage canonical. */
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) return {};
   const t = await getTranslations({ locale, namespace: "meta" });
-  return {
-    metadataBase: new URL(SITE_URL),
-    title: t("title"),
-    description: t("desc"),
-    alternates: { canonical: `/${locale}`, languages: { ar: "/ar", en: "/en", "x-default": "/ar" } },
-    openGraph: {
-      type: "website",
-      title: t("title"),
-      description: t("desc"),
-      images: ["/assets/covers/og.webp"],
-      locale: locale === "ar" ? "ar_SA" : "en_US",
-      alternateLocale: locale === "ar" ? "en_US" : "ar_SA",
-    },
-    twitter: { card: "summary_large_image" },
-  };
+  return { metadataBase: new URL(SITE_URL), title: t("title"), description: t("desc") };
 }
 
 export const viewport: Viewport = { themeColor: "#5700AE", width: "device-width", initialScale: 1, viewportFit: "cover" };
