@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { SVCPAGES, type Locale } from "@/content/data";
 import { routing } from "@/i18n/routing";
-import { pageMetadata, SITE_NAME } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMetadata, SITE_NAME } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import DetailHero from "@/components/project/DetailHero";
 import EndCta from "@/components/project/EndCta";
 import SvcEffects from "@/components/project/SvcEffects";
@@ -53,6 +54,7 @@ export default async function ServicePage({ params }: PageProps<"/[locale]/servi
   return (
     <div id="project">
       <script dangerouslySetInnerHTML={{ __html: "document.body.classList.add('on-project')" }} />
+      <JsonLd data={breadcrumbJsonLd(l, t("nav.home"), `/services/${id}`, c.h1)} />
       <DetailHero id="spT" className="sp7-hero" title={c.h1} floats={[P.icon, "auto_awesome", "favorite", "bolt", "star", "trending_up"]}
         tag={<span className="p7-tag"><i />{c.tag}</span>}>
         <p className="sp7-lead">{c.lead}</p>

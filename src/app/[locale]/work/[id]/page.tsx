@@ -4,7 +4,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { WORKS, SOCIAL, type Locale } from "@/content/data";
 import { client, sec, sector, svcPageOf, wCat, wClient, wName, wSec, wSub, work, workMedia } from "@/content/site";
 import { routing } from "@/i18n/routing";
-import { pageMetadata, SITE_NAME } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMetadata, SITE_NAME } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import DetailHero from "@/components/project/DetailHero";
 import Showcase, { shapeOf } from "@/components/project/Showcase";
 import VideoStage from "@/components/project/VideoStage";
@@ -66,6 +67,7 @@ export default async function ProjectPage({ params }: PageProps<"/[locale]/work/
     <div id="project">
       {/* solid header before hydration (reference: body.on-project) */}
       <script dangerouslySetInnerHTML={{ __html: "document.body.classList.add('on-project')" }} />
+      <JsonLd data={breadcrumbJsonLd(l, t("nav.home"), `/work/${id}`, wName(w, l))} />
       <DetailHero id="pdTitle" title={wName(w, l)} floats={[g.icon, sector(w.sec).icon, "auto_awesome", "favorite", "bolt", "star"]}>
         {desc && <p className="p7-desc">{desc}</p>}
         <a className="btn btn-primary" href="#contact"><BtnInner label={t("pd.ctaB")} /></a>

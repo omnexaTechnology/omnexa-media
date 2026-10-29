@@ -161,6 +161,16 @@ Review weekly for the first month after Phase 1, then monthly. Note each deploy 
 | **3C — GA4 install** | Add the Google tag once (`@next/third-parties/google`) from `NEXT_PUBLIC_GA_ID`; decide `G-HCVNPRQZJC` (shared stream, filter by hostname) vs. a dedicated `media.omnexa.sa` stream/property; conversion events (`booking_submit`, `whatsapp_click`, `phone_click`, `email_click`) without PII. | Owner choice of stream + privacy/consent decision | Me (code) + owner |
 | **3D — After deploy** | Re-check live site for localhost; GSC baseline export; submit sitemap; URL Inspection + request indexing for home + 3 service pages ×2 locales; verify GA4 Realtime. | Deploy + 3A | Me (with access) |
 
+## Status update — 2026-10-29
+
+| Item | Status |
+|---|---|
+| Live site | Canonicals, hreflang, sitemap (90 URLs) and robots all use `https://media.omnexa.sa`; `omnexa-*` work stubs return 308. |
+| GA4 | `G-HCVNPRQZJC` collecting on `media.omnexa.sa` (Realtime confirmed). Key events not marked yet. |
+| Search Console | URL-prefix property `https://media.omnexa.sa/` created and **verified (HTML file `public/google22884ed680ea321c.html` — keep it)**. The GA method failed because the tag is injected after hydration. `sitemap.xml` submitted: success, 90 pages discovered. Performance/Indexing reports still processing → baseline export pending. |
+| Structured data (owner-independent slice) | `WebSite` on `/ar` and `/en`; `BreadcrumbList` (Home → page) on service and work pages. `Organization`/`Service`/`FAQPage` still wait for owner facts. |
+| Social links | `aria-label` names the platform ("Omnexa Media on Instagram"), `rel="noopener noreferrer"`. Canonical TikTok URL still to confirm. |
+
 ## Owner inputs (blocking items marked ★)
 
 1. ★ Access to the hosting dashboard (or someone to set `NEXT_PUBLIC_SITE_URL` and redeploy).
