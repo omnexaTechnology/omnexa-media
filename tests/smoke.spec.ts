@@ -101,6 +101,28 @@ test.describe("seo metadata", () => {
     });
   }
 
+  test("structured data: WebSite on home, Home → page breadcrumbs", async ({ page }) => {
+    const ld = async (route: string) => {
+      await page.goto(route);
+      return Promise.all((await page.locator('script[type="application/ld+json"]').allTextContents()).map((s) => JSON.parse(s)));
+    };
+    const home = await ld("/ar");
+    expect(home).toHaveLength(1);
+    expect(home[0]).toMatchObject({ "@type": "WebSite", name: "أومنيكسا ميديا", url: `${ORIGIN}/`, inLanguage: "ar" });
+    for (const [route, h1] of [["/en/services/ads", "Paid Advertising Campaign Management"], ["/ar/work/eco-web", null]] as const) {
+      const [bc] = await ld(route);
+      expect(bc["@type"]).toBe("BreadcrumbList");
+      const items = bc.itemListElement;
+      expect(items.map((i: { item: string }) => i.item)).toEqual([`${ORIGIN}${route.slice(0, 3)}`, `${ORIGIN}${route}`]);
+      expect(items[1].name).toBe(h1 ?? (await page.locator("h1").first().textContent())?.trim());
+    }
+  });
+
+  test("social links name the platform", async ({ page }) => {
+    await page.goto("/en");
+    await expect(page.locator('#f2Social a[aria-label="Omnexa Media on Instagram"]')).toHaveAttribute("rel", "noopener noreferrer");
+  });
+
   test("default share image is a 1200x630 JPEG", async ({ page, request }) => {
     await page.goto("/en/services/social");
     expect(await page.locator('meta[property="og:image"]').getAttribute("content")).toBe(`${ORIGIN}/assets/covers/og.jpg`);

@@ -44,3 +44,29 @@ export function pageMetadata({ locale, path, title, description, image, imageAlt
     twitter: { card: "summary_large_image", title, description, images: [img] },
   };
 }
+
+/* JSON-LD built only from facts already visible on the page (names, titles, URLs). Organization/Service schema waits
+   for the owner to confirm contact and business details (docs/SEO_GEO_IMPLEMENTATION_PLAN.md, Phase 4). */
+export function websiteJsonLd(locale: AppLocale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: SITE_NAME[locale],
+    alternateName: routing.locales.filter((l) => l !== locale).map((l) => SITE_NAME[l]),
+    url: `${SITE_URL}/`,
+    inLanguage: locale,
+  };
+}
+
+/* Home → page. `name` is the page's visible H1 */
+export function breadcrumbJsonLd(locale: AppLocale, homeName: string, path: string, name: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: homeName, item: abs(`/${locale}`) },
+      { "@type": "ListItem", position: 2, name, item: abs(`/${locale}${path}`) },
+    ],
+  };
+}

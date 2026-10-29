@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { AppLocale } from "@/i18n/routing";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, websiteJsonLd } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
 import Hero from "@/components/sections/Hero";
 import Platforms from "@/components/sections/Platforms";
 import Services from "@/components/sections/Services";
@@ -25,6 +26,7 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   return (
     // #home: 42 rules in site.css are scoped to it
     <div id="home">
+      <JsonLd data={websiteJsonLd(locale as AppLocale)} />
       <Hero />
       <Platforms />
       <Services />
