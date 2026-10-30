@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { SITE_URL } from "@/lib/siteUrl";
 import DIMS from "@/content/media-dims.json";
+import { SITE } from "@/content/data";
+import { SOCIAL_LINKS } from "@/content/site";
 
 export const SITE_NAME: Record<AppLocale, string> = { ar: "أومنيكسا ميديا", en: "Omnexa Media" };
 const OG_LOCALE: Record<AppLocale, string> = { ar: "ar_SA", en: "en_US" };
@@ -56,6 +58,39 @@ export function websiteJsonLd(locale: AppLocale) {
     alternateName: routing.locales.filter((l) => l !== locale).map((l) => SITE_NAME[l]),
     url: `${SITE_URL}/`,
     inLanguage: locale,
+    publisher: { "@id": ORG_ID },
+  };
+}
+
+const ORG_ID = `${SITE_URL}/#org`;
+/* service areas as listed on the verified Google Business Profile ("شركة اومنيكسا") */
+const AREAS = [
+  { "@type": "City", name: "Dammam" },
+  { "@type": "City", name: "Khobar" },
+  { "@type": "City", name: "Jubail" },
+  { "@type": "City", name: "Saihat" },
+  { "@type": "Country", name: "Saudi Arabia" },
+  { "@type": "Country", name: "Bahrain" },
+  { "@type": "Country", name: "Kuwait" },
+];
+
+/* Omnexa Media as the media arm of Omnexa (omnexa.sa); contacts and profiles are the ones shown on the site and on the
+   Google Business Profile, so search and answer engines can match them to one entity */
+export function organizationJsonLd(locale: AppLocale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": ORG_ID,
+    name: SITE_NAME[locale],
+    alternateName: routing.locales.filter((l) => l !== locale).map((l) => SITE_NAME[l]),
+    url: `${SITE_URL}/`,
+    logo: abs("/assets/brand/logo-en-light.png"),
+    email: SITE.contact.email,
+    telephone: `+${SITE.contact.whatsapp}`,
+    contactPoint: { "@type": "ContactPoint", contactType: "customer service", telephone: `+${SITE.contact.whatsapp}`, email: SITE.contact.email, availableLanguage: ["ar", "en"] },
+    areaServed: AREAS,
+    sameAs: SOCIAL_LINKS.filter((s) => s.href.startsWith("https://") && !s.href.startsWith("https://wa.me/")).map((s) => s.href),
+    parentOrganization: { "@type": "Organization", name: locale === "ar" ? "أومنيكسا" : "Omnexa", url: "https://omnexa.sa/" },
   };
 }
 
