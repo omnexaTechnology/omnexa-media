@@ -52,6 +52,9 @@ test.describe("routes", () => {
   test("redirects and 404s", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveURL(/\/ar$/);
+    const root = await page.request.get("/", { maxRedirects: 0 });
+    expect(root.status()).toBe(308); // permanent, so Google indexes /ar instead of "/"
+    expect(root.headers()["location"]).toMatch(/\/ar$/);
     await page.goto("/ar/work/omnexa-ads");
     await expect(page).toHaveURL(/\/ar\/services\/ads$/);
     // work entries shown as service pages move permanently (308), so search engines consolidate on the service URL
