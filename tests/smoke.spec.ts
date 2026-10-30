@@ -110,8 +110,12 @@ test.describe("seo metadata", () => {
       return Promise.all((await page.locator('script[type="application/ld+json"]').allTextContents()).map((s) => JSON.parse(s)));
     };
     const home = await ld("/ar");
-    expect(home).toHaveLength(1);
-    expect(home[0]).toMatchObject({ "@type": "WebSite", name: "أومنيكسا ميديا", url: `${ORIGIN}/`, inLanguage: "ar" });
+    expect(home).toHaveLength(2);
+    expect(home[0]).toMatchObject({ "@type": "WebSite", name: "أومنيكسا ميديا", url: `${ORIGIN}/`, inLanguage: "ar", publisher: { "@id": `${ORIGIN}/#org` } });
+    expect(home[1]).toMatchObject({ "@type": "Organization", "@id": `${ORIGIN}/#org`, url: `${ORIGIN}/`, email: "info@omnexa.sa", telephone: "+966550483401" });
+    expect(home[1].sameAs).toContain("https://www.tiktok.com/@0mnexa");
+    expect(home[1].sameAs.some((u: string) => u.startsWith("mailto:") || u.includes("wa.me"))).toBe(false);
+    expect((await page.request.get(new URL(home[1].logo).pathname)).status()).toBe(200);
     for (const [route, h1] of [["/en/services/ads", "Paid Advertising Campaign Management"], ["/ar/work/eco-web", null]] as const) {
       const [bc] = await ld(route);
       expect(bc["@type"]).toBe("BreadcrumbList");
@@ -274,6 +278,8 @@ test.describe("interactions", () => {
     await page.goto("/en");
     await page.locator('.sv7-go[data-service="social"]').click();
     await expect(page.locator("#bkService")).toHaveValue("social");
+    // next month always has several open days (late in a month, the current one may have only one left)
+    await page.locator(".bk-nav").last().click();
     await page.locator("#bkGrid button:not([disabled])").nth(1).click();
     await page.locator("#bkSlots button").first().click();
     await page.locator("#bkSend").click();
