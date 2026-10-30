@@ -79,6 +79,7 @@ export const SOCIAL_LINKS: { id: string; href: string; d: string | null }[] = [
   { id: "tiktok", href: "https://www.tiktok.com/@0mnexa", d: platPath("tiktok") },
   { id: "snapchat", href: "https://www.snapchat.com/add/omnexa", d: platPath("snapchat") },
   { id: "linkedin", href: "https://www.linkedin.com/company/omnexa-technology", d: platPath("linkedin") || FB },
+  { id: "facebook", href: "https://www.facebook.com/profile.php?id=61580077742055", d: FB },
   { id: "email", href: "mailto:" + SITE.contact.email, d: null },
   { id: "whatsapp", href: waHref(), d: WA_PATH },
 ];

@@ -4,9 +4,10 @@ import { SOCIAL_LINKS } from "@/content/site";
 import { Svg } from "@/components/ui/PlatIcon";
 import Ms from "@/components/ui/Ms";
 
-/* "Omnexa Media on Instagram" / "أومنيكسا ميديا على إنستغرام" */
+/* "Omnexa Media on Instagram" / "أومنيكسا ميديا على إنستغرام"; facebook is not in PLATFORMS */
+const EXTRA = [{ id: "facebook", ar: "فيسبوك", en: "Facebook" }];
 function label(id: string, l: Locale) {
-  const p = PLATFORMS.find((x) => x.id === id);
+  const p = [...PLATFORMS, ...EXTRA].find((x) => x.id === id);
   return p ? (l === "ar" ? `أومنيكسا ميديا على ${p.ar}` : `Omnexa Media on ${p.en}`) : id;
 }
 
