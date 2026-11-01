@@ -15,7 +15,7 @@ export default function SxCard({ w, n, on, l, onOpen }: { w: Work; n: number; on
       ) : m.cover ? (
         <Img className="sx-bg" src={m.cover} fill sizes="(max-width: 767px) 85vw, 640px" />
       ) : (
-        <span className="sx-bg w-ph" aria-hidden="true"><span className="ms">{sec(w.cat).icon}</span><b>{wClient(w, l)}</b></span>
+        <span className="sx-bg w-ph" aria-hidden="true"><span data-nosnippet="" className="ms">{sec(w.cat).icon}</span><b>{wClient(w, l)}</b></span>
       )}
       <span className="sx-shade" aria-hidden="true" />
       <button className="sx-tab" type="button" data-sx-go={n} aria-expanded={on} aria-label={wName(w, l)} onClick={() => onOpen?.(n)}>
@@ -29,7 +29,7 @@ export default function SxCard({ w, n, on, l, onOpen }: { w: Work; n: number; on
           <span className="sx-sub">{wSub(w, l)}</span>
           <span className="sx-sec"><Ms name={sector(w.sec).icon} />{wSec(w, l)}</span>
         </span>
-        <span className="sx-go" aria-hidden="true"><span className="ms flip">arrow_outward</span></span>
+        <span className="sx-go" aria-hidden="true"><span data-nosnippet="" className="ms flip">arrow_outward</span></span>
       </a>
     </article>
   );

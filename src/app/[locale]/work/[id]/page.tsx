@@ -78,13 +78,14 @@ export default async function ProjectPage({ params }: PageProps<"/[locale]/work/
           <h2 id="sumT">{t("pd.sumT")}</h2>
           <p>{t("pd.sumP")}</p>
           <div className="p7-sumg">
-            <article className="p7-sc s1"><b>{wClient(w, l)}</b><small>{t("pd.client")}</small></article>
-            <article className="p7-sc s2"><b>{wSub(w, l)}</b><small>{t("pd.workType")}</small></article>
+            {/* spaces between the parts so the text reads as words, not "ClientName" glued to its label, when Google quotes it */}
+            <article className="p7-sc s1"><b>{wClient(w, l)}</b> <small>{t("pd.client")}</small></article>
+            <article className="p7-sc s2"><b>{wSub(w, l)}</b> <small>{t("pd.workType")}</small></article>
             <article className="p7-sc s3">
               <span className="p7-items">
-                <span><i><Ms name={g.icon} /></i>{wCat(w, l)}</span>
+                <span><i><Ms name={g.icon} /></i>{wCat(w, l)}</span>{" "}
                 <span><i><Ms name={sector(w.sec).icon} /></i>{wSec(w, l)}</span>
-              </span>
+              </span>{" "}
               <small>{t("pd.areaSec")}</small>
             </article>
           </div>

@@ -38,7 +38,7 @@ export function WhyFan({ l, c }: SvcProps) {
         <div className="fn fn4" data-reveal="">
           {c.feats.map((f, k) => (
             <article key={k} className="fn-c" style={css({ "--i": k })} data-pos={k}>
-              <span className="fn-h"><span className="ms" aria-hidden="true">{f[0]}</span><small dir="ltr">0{k + 1}</small></span>
+              <span className="fn-h"><span data-nosnippet="" className="ms" aria-hidden="true">{f[0]}</span><small dir="ltr">0{k + 1}</small></span>
               <h3>{f[1]}</h3>
               <p>{f[2]}</p>
               <div className="fn-vis" aria-hidden="true">{mini[k]}</div>
@@ -81,7 +81,7 @@ export function StepCards({ l, c }: SvcProps) {
     <span key="p" className="uc-pills">
       {["meta", "google", "tiktok"].map((k) => <span key={k}><SpIcon k={k} cls="sp-pi sm" /><b dir="ltr">{PNAME[k].replace(" Ads", "")}</b></span>)}
     </span>,
-    <span key="r" className="uc-rocket"><span className="ms">rocket_launch</span></span>,
+    <span key="r" className="uc-rocket"><span data-nosnippet="" className="ms">rocket_launch</span></span>,
     <svg key="s" className="uc-spark" viewBox="0 0 200 60" preserveAspectRatio="none"><path d="M0 44 L22 38 L40 46 L62 30 L84 34 L104 18 L126 26 L150 12 L172 20 L200 6" /><circle cx="200" cy="6" r="5" /></svg>,
   ];
   return (
@@ -126,13 +126,13 @@ export function AdsDashboard({ l, c }: SvcProps) {
                 <small>{d.spend}</small>
                 <Num v={18450} />
                 <em>{d.unit}</em>
-                <span className="em-acts">{["add", "pause", "tune"].map((x) => <i key={x}><span className="ms">{x}</span></i>)}</span>
+                <span className="em-acts">{["add", "pause", "tune"].map((x) => <i key={x}><span data-nosnippet="" className="ms">{x}</span></i>)}</span>
               </div>
             </div>
             <div className="em-t">
               <h3>{c.dashT}</h3>
               <p>{c.dashP}</p>
-              <ul>{d.ch.map((x) => <li key={x}><span className="ms">check_circle</span>{x}</li>)}</ul>
+              <ul>{d.ch.map((x) => <li key={x}><span data-nosnippet="" className="ms">check_circle</span>{x}</li>)}</ul>
             </div>
           </article>
           <article className="em-p r">

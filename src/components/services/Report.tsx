@@ -89,7 +89,7 @@ export function ReportDoc({ l, c }: SvcProps) {
               </div>
               <div className="rp-box rp-recs">
                 <small>{d.recsT}</small>
-                <ul>{d.recs.map((x, k) => <li key={x} style={css({ "--d": `${k * 0.25 + 0.6}s` })}><span className="ms">check_circle</span>{x}</li>)}</ul>
+                <ul>{d.recs.map((x, k) => <li key={x} style={css({ "--d": `${k * 0.25 + 0.6}s` })}><span data-nosnippet="" className="ms">check_circle</span>{x}</li>)}</ul>
                 <Pin n={3} />
               </div>
             </div>
