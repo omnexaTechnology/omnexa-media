@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     ...WORKS.filter((w) => !(WORK_SVC as Record<string, string>)[w.id]).map((w) => `/work/${w.id}`),
     ...Object.keys(SVCPAGES).map((id) => `/services/${id}`),
+    "/ads",
   ];
   const url = (l: string, p: string) => `${SITE_URL}/${l}${p}`;
   return paths.flatMap((p) =>

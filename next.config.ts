@@ -6,7 +6,12 @@ import createNextIntlPlugin from "next-intl/plugin";
 const nextConfig: NextConfig = {
   // "/" always goes to the default locale (no locale detection), so make it permanent: with next-intl's 307, Google
   // indexes "/" as its own page instead of consolidating it into /ar
-  redirects: async () => [{ source: "/", destination: "/ar", permanent: true }],
+  redirects: async () => [
+    { source: "/", destination: "/ar", permanent: true },
+    // the campaign landing page moved from /299 to /ads: keep old links (ads, shares, bookmarks) working
+    { source: "/:locale(ar|en)/299", destination: "/:locale/ads", permanent: true },
+    { source: "/299", destination: "/ar/ads", permanent: true },
+  ],
   images: {
     // AVIF first, WebP fallback; originals in public/assets stay the optimiser's source
     formats: ["image/avif", "image/webp"],
