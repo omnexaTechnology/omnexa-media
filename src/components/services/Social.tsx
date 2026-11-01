@@ -40,7 +40,7 @@ export function SocialBento({ l, c }: SvcProps) {
         <div className="kb">
           {c.feats.map((f, k) => (
             <article key={k} className={`kb-c ${KC[k]}`} data-reveal="" style={css({ "--d": `${k * 0.07}s` })}>
-              <span className="kb-k"><span className="ms" aria-hidden="true">{f[0]}</span><span dir="ltr">0{k + 1}</span></span>
+              <span className="kb-k"><span data-nosnippet="" className="ms" aria-hidden="true">{f[0]}</span><span dir="ltr">0{k + 1}</span></span>
               <h3>{f[1]}</h3>
               <p>{f[2]}</p>
               <span className="kb-deco" aria-hidden="true"><svg viewBox="0 0 100 100"><path d="M50 0 L61 34 L97 31 L68 53 L80 88 L50 66 L20 88 L32 53 L3 31 L39 34 Z" /></svg></span>
@@ -72,16 +72,16 @@ export function BeforeAfter({ l }: SvcProps) {
             <div className="ba3-b">
               <span className="ba3-tag">{d.b}</span>
               <div className="igp">
-                <div className="igp-top"><b dir="ltr">hma_institute_</b><span className="ms">menu</span></div>
+                <div className="igp-top"><b dir="ltr">hma_institute_</b><span data-nosnippet="" className="ms">menu</span></div>
                 <div className="igp-head">
                   <span className="igp-av"><Img src="/assets/logos/qudrat.png" sizes="64px" /></span>
                   <div className="igp-st"><span><b dir="ltr">3</b>{d.posts}</span></div>
                 </div>
                 <div className="igp-bio"><b>{d.name}</b><span>{d.kind}</span></div>
                 <div className="igp-btns"><span className="">{d.follow}</span><span>{d.msg}</span></div>
-                <div className="igp-hl"><span><i><span className="ms">add</span></i>{d.hl}</span></div>
+                <div className="igp-hl"><span><i><span data-nosnippet="" className="ms">add</span></i>{d.hl}</span></div>
                 <div className="igp-grid">
-                  {[0, 1, 2, 3, 4, 5].map((k) => <i key={k} className={`ph${k > 2 ? " no" : ""}`}><span className="ms">{k > 2 ? "" : "image"}</span></i>)}
+                  {[0, 1, 2, 3, 4, 5].map((k) => <i key={k} className={`ph${k > 2 ? " no" : ""}`}><span data-nosnippet="" className="ms">{k > 2 ? "" : "image"}</span></i>)}
                 </div>
               </div>
             </div>

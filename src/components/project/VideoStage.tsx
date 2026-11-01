@@ -26,15 +26,15 @@ export default function VideoStage({ vids, handle, chips }: { vids: Vid[]; handl
           </video>
           <span className="ru-ui" aria-hidden="true">
             <span className="ru-side">
-              <span className="ms">favorite</span><span className="ms">chat_bubble</span><span className="ms">reply</span>
+              <span data-nosnippet="" className="ms">favorite</span><span data-nosnippet="" className="ms">chat_bubble</span><span data-nosnippet="" className="ms">reply</span>
               {/* eslint-disable-next-line @next/next/no-img-element -- 12 KB brand mark */}
               <i className="ru-disc"><img src="/assets/brand/mark.png" alt="" /></i>
             </span>
             <span className="ru-cap"><b dir="ltr">{handle}</b><small>{chips.sub}</small></span>
-            <span className="ru-nav"><span className="ms">home</span><span className="ms">search</span><b>+</b><span className="ms">inbox</span><span className="ms">person</span></span>
+            <span className="ru-nav"><span data-nosnippet="" className="ms">home</span><span data-nosnippet="" className="ms">search</span><b>+</b><span data-nosnippet="" className="ms">inbox</span><span data-nosnippet="" className="ms">person</span></span>
           </span>
-          <button type="button" className="ru-ctl p" id="rkPlay" aria-label={t("pd.pause")}><span className="ms" aria-hidden="true">pause</span></button>
-          <button type="button" className="ru-ctl s" id="rkSnd" aria-label={t("pd.sound")} aria-pressed="false"><span className="ms" aria-hidden="true">volume_off</span></button>
+          <button type="button" className="ru-ctl p" id="rkPlay" aria-label={t("pd.pause")}><span data-nosnippet="" className="ms" aria-hidden="true">pause</span></button>
+          <button type="button" className="ru-ctl s" id="rkSnd" aria-label={t("pd.sound")} aria-pressed="false"><span data-nosnippet="" className="ms" aria-hidden="true">volume_off</span></button>
         </div>
       </div>
       <span className="ru-chip c1" aria-hidden="true"><b>{chips.sub}</b><small>{chips.cat}</small></span>

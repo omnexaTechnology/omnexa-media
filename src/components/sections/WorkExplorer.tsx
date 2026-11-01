@@ -124,7 +124,7 @@ export default function WorkExplorer() {
               <option value="all">{t("wk.indAll")}</option>
               {Object.entries(SECTORS).map(([k, s]) => <option key={k} value={k}>{s[l]}</option>)}
             </select>
-            <span className="wk-ind-arr" aria-hidden="true"><span className="ms">keyboard_arrow_down</span></span>
+            <span className="wk-ind-arr" aria-hidden="true"><span data-nosnippet="" className="ms">keyboard_arrow_down</span></span>
           </label>
         </div>
         <div className="dept-tabs wk-tabs1" role="tablist" id="workTabs" aria-label={t("work.tag")} ref={tabsRef} onKeyDown={onTabKey}>

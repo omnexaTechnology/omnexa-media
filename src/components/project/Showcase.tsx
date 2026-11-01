@@ -77,11 +77,11 @@ export default function Showcase({ shape, imgs }: { shape: Shape; imgs: string[]
           </div>
           {imgs.length > 1 && (
             <div className="p9-fl-nav">
-              <button type="button" className="hd-ic" data-fl="-1" aria-label={t("lb.prev")}><span className="ms flip" aria-hidden="true">chevron_left</span></button>
+              <button type="button" className="hd-ic" data-fl="-1" aria-label={t("lb.prev")}><span data-nosnippet="" className="ms flip" aria-hidden="true">chevron_left</span></button>
               <span className="p9-fl-dots">
                 {imgs.map((_, k) => <button key={k} type="button" data-fc={k} aria-label={String(k + 1)} />)}
               </span>
-              <button type="button" className="hd-ic" data-fl="1" aria-label={t("lb.next")}><span className="ms flip" aria-hidden="true">chevron_right</span></button>
+              <button type="button" className="hd-ic" data-fl="1" aria-label={t("lb.next")}><span data-nosnippet="" className="ms flip" aria-hidden="true">chevron_right</span></button>
             </div>
           )}
         </div>

@@ -45,6 +45,8 @@ test.describe("routes", () => {
       // every icon ligature on the page exists in the self-hosted subset font
       const used = await page.$$eval(".ms", (els) => els.map((e) => e.textContent!.trim()).filter(Boolean));
       expect(used.filter((x) => !iconSet.has(x)), "icons missing from the subset").toEqual([]);
+      // icon ligatures are plain text ("movie"…); Google must not quote them in result snippets
+      expect(await page.locator(".ms:not([data-nosnippet])").count(), "icons without data-nosnippet").toBe(0);
       expect(real(problems)).toEqual([]);
     });
   }

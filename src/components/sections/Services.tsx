@@ -30,7 +30,7 @@ export default function Services() {
               const c = s[l];
               return (
                 <article key={s.id} className={`sv7-c ${PAL[i % PAL.length]}`} data-sid={s.id}>
-                  <span className="sv7-ic" aria-hidden="true"><span className="ms">{s.icon}</span></span>
+                  <span className="sv7-ic" aria-hidden="true"><span data-nosnippet="" className="ms">{s.icon}</span></span>
                   <h3>{c.t}</h3>
                   <p>{c.d}</p>
                   <ul className="svc5-list">

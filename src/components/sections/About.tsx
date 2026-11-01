@@ -72,7 +72,7 @@ export default function About() {
             <div className="rp-stack">
               {RES.map(([v, suf, key, icon, bg, r], i) => (
                 <div key={key} className="rp" style={{ "--bg": bg, "--r": `${r}deg`, "--k": i } as React.CSSProperties}>
-                  <i><span className="ms" aria-hidden="true">{icon}</span></i>
+                  <i><span data-nosnippet="" className="ms" aria-hidden="true">{icon}</span></i>
                   <b>
                     <bdi dir="ltr">
                       {suf === "%" ? <><span className="rp-n" data-to={v}>{v}</span>%</> : <>+<span className="rp-n" data-to={v}>{v}</span></>}

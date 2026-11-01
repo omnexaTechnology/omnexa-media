@@ -89,8 +89,8 @@ export default function Header() {
 
   const themeBtn = (id?: string) => (
     <button id={id} className="hd-ic" type="button" aria-label={t("ui.theme")} aria-pressed={dark} onClick={toggleTheme}>
-      <span className="ms ms-light" aria-hidden="true">dark_mode</span>
-      <span className="ms ms-dark" aria-hidden="true">light_mode</span>
+      <span data-nosnippet="" className="ms ms-light" aria-hidden="true">dark_mode</span>
+      <span data-nosnippet="" className="ms ms-dark" aria-hidden="true">light_mode</span>
     </button>
   );
   // a real link: switching locale changes the root layout, so this is a full navigation anyway

@@ -62,7 +62,7 @@ export function SvcHead({ k, t, p }: { k?: string; t: string; p?: string }) {
 export const Chips = ({ icons }: { icons: string[] }) => (
   <>
     {icons.map((k, n) => (
-      <span key={k} className={`sp8-chip c${n}`} aria-hidden="true"><span className="ms">{k}</span></span>
+      <span key={k} className={`sp8-chip c${n}`} aria-hidden="true"><span data-nosnippet="" className="ms">{k}</span></span>
     ))}
   </>
 );

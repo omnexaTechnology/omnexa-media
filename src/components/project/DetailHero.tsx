@@ -12,7 +12,7 @@ export default function DetailHero({ id, title, floats, className = "", tag, chi
     <section className={`p7-hero ${className}`.trim()} aria-labelledby={id}>
       <Squares dir="diagonal" />
       {floats.map((f, k) => (
-        <span key={k} className={`p7-fl f${k + 1}`} aria-hidden="true"><span className="ms">{f}</span></span>
+        <span key={k} className={`p7-fl f${k + 1}`} aria-hidden="true"><span data-nosnippet="" className="ms">{f}</span></span>
       ))}
       <div className="container p7-in">
         <nav className="crumbs" aria-label="breadcrumb">
