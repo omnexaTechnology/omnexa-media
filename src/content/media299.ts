@@ -66,7 +66,8 @@ type Copy = {
   /* links: used by the landing footer only (the navbar has no section links) */
   nav: { links: [string, string][]; cta: string; menu: string; home: string };
   foot: { word: string };
-  hero: { h1a: string; h1b: string; sub: string; price: Price; cta: string; visualAlt: string };
+  /* contact: the compact tel: link under the CTA (dials SITE.contact.phone) */
+  hero: { h1a: string; h1b: string; sub: string; price: Price; cta: string; contact: string; visualAlt: string };
   overview: { k: string; t: string; p: string; cta: string; platT: string };
   inc: { k: string; t: string; p: string; note: string };
   add: { k: string; t: string; p: string; price: Price; priceNote: string; cta: string; waWith: string; extraT: string };
@@ -95,6 +96,7 @@ export const COPY: Record<Locale, Copy> = {
       sub:  "سوشل ميديا, محتوى رقمي، تصميم جرافيكي ، موشن جرافيك، ريلز، افلام سينمائية نهتم بحضورك من الفكرة الى النتيجة",
       price: { from: "تبدأ الباقات من", cur: "ر.س", only: "فقط" },
       cta: "اطلب باقتك الآن",
+      contact: "تواصل معنا",
       visualAlt: "منشورات صممتها أومنيكسا ميديا لعملائها",
     },
     overview: {
@@ -161,6 +163,7 @@ export const COPY: Record<Locale, Copy> = {
       sub: "Social media, digital content, graphic design, motion graphics, Reels, and cinematic films.We take care of your presence—from the initial idea to the final result.",
       price: { from: "Packages start from", cur: "SAR", only: "only" },
       cta: "Order your package now",
+      contact: "Contact us",
       visualAlt: "Posts designed by Omnexa Media for its clients",
     },
     overview: {
