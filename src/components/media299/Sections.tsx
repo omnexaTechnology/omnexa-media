@@ -38,22 +38,22 @@ export function PriceTag({ l, p, className }: P & { p: { from: string; cur: stri
   );
 }
 
-/* our work at a glance: intro + link to the main site + three real works + platforms */
+/* our work at a glance: intro + link to the main site, then three real works as cards, + platforms */
 export function Overview({ l }: P) {
   const c = COPY[l].overview;
   return (
     <section className="m-sec m-over" id="overview" aria-labelledby="mOverT">
       <div className="container">
-        <div className="m-over-grid">
-          <div className="m-over-side">
-            <Head k={c.k} t={c.t} p={c.p} id="mOverT" center={false} />
-            <a className="btn btn-primary m-over-cta" href={MAIN_SITE} data-m-reveal=""><BtnInner label={c.cta} /></a>
-          </div>
-          <ul className="m-pillars m-works">
-            {showcase(l).map((w, k) => (
-              <li key={w.id} data-m-reveal="" style={{ "--d": `${k * 0.08}s` } as React.CSSProperties}>
-                <span className="m-work-img"><Img src={w.cover} sizes="96px" /></span>
-                <div><small>{w.cat}</small><h3>{w.n}</h3></div>
+        <div className="m-over-top">
+          <Head k={c.k} t={c.t} p={c.p} id="mOverT" center={false} />
+          <a className="btn btn-primary m-over-cta" href={MAIN_SITE} data-m-reveal=""><BtnInner label={c.cta} /></a>
+        </div>
+        <div className="m-show" data-m-reveal="">
+          <ul>
+            {showcase(l).map((w) => (
+              <li key={w.id}>
+                <span className="m-show-img"><Img src={w.cover} sizes="(max-width: 767px) 76vw, 400px" /></span>
+                <div className="m-show-cap"><small>{w.cat}</small><h3>{w.n}</h3></div>
               </li>
             ))}
           </ul>
