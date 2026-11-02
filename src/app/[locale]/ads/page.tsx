@@ -11,7 +11,7 @@ import Effects from "@/components/media299/Effects";
 import LandingFooter from "@/components/media299/LandingFooter";
 import "@/styles/media299.css";
 
-/* /ads — Digital Presence Package: an independent campaign page (moved from /299, which redirects here). Offer structure from omnexa.sa/ar/299,
+/* /ads — Omnexa Media packages: an independent campaign page (moved from /299, which redirects here). Offer structure from omnexa.sa/ar/299,
    content from Omnexa Media's own services, visual identity from the Media site (tokens, type, buttons, icons). */
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/ads">): Promise<Metadata> {
@@ -34,8 +34,8 @@ export default async function PackagePage({ params }: PageProps<"/[locale]/ads">
       <LandingNav />
       <Hero l={l} />
       <Overview l={l} />
-      <Included l={l} />
       <Addons l={l} />
+      <Included l={l} />
       <Why l={l} />
       <How l={l} />
       <FaqSection l={l} />

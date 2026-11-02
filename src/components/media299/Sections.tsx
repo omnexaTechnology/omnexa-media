@@ -1,10 +1,11 @@
 import type { Locale } from "@/content/data";
-import { COPY, addons, clientLogos, faq, included, platforms, reasons, steps } from "@/content/media299";
+import { COPY, MAIN_SITE, START_PRICE, clientLogos, extras, faq, included, packages, platforms, reasons, showcase, steps } from "@/content/media299";
 import { SITE } from "@/content/data";
 import { WA_PATH, waHref } from "@/content/site";
 import { Svg } from "@/components/ui/PlatIcon";
 import Img from "@/components/ui/Img";
 import Ms from "@/components/ui/Ms";
+import BtnInner from "@/components/ui/BtnInner";
 import { OrderForm } from "./Package";
 import Faq from "./Faq";
 
@@ -24,22 +25,38 @@ function Head({ k, t, p, id, center = true }: { k: string; t: string; p?: string
   );
 }
 
-/* package at a glance: statement + three pillars + platforms */
+/* the starting price ("packages start from 423 SAR only"); the amount reads number-then-currency in Arabic,
+   currency-then-number in English */
+export function PriceTag({ l, p, className }: P & { p: { from: string; cur: string; only: string }; className?: string }) {
+  const amt = <b dir="ltr">{START_PRICE}</b>, cur = <small>{p.cur}</small>;
+  return (
+    <p className={`m-price${className ? " " + className : ""}`}>
+      <span className="m-price-l">{p.from}</span>
+      <span className="m-price-v">{l === "ar" ? <>{amt}{cur}</> : <>{cur}{amt}</>}</span>
+      <span className="m-price-o">{p.only}</span>
+    </p>
+  );
+}
+
+/* our work at a glance: intro + link to the main site + three real works + platforms */
 export function Overview({ l }: P) {
   const c = COPY[l].overview;
   return (
     <section className="m-sec m-over" id="overview" aria-labelledby="mOverT">
       <div className="container">
         <div className="m-over-grid">
-          <Head k={c.k} t={c.t} p={c.p} id="mOverT" center={false} />
-          <ol className="m-pillars">
-            {c.pillars.map(([ic, t, p], k) => (
-              <li key={t} data-m-reveal="" style={{ "--d": `${k * 0.08}s` } as React.CSSProperties}>
-                <span className="m-pil-ic"><Ms name={ic} /></span>
-                <div><h3>{t}</h3><p>{p}</p></div>
+          <div className="m-over-side">
+            <Head k={c.k} t={c.t} p={c.p} id="mOverT" center={false} />
+            <a className="btn btn-primary m-over-cta" href={MAIN_SITE} data-m-reveal=""><BtnInner label={c.cta} /></a>
+          </div>
+          <ul className="m-pillars m-works">
+            {showcase(l).map((w, k) => (
+              <li key={w.id} data-m-reveal="" style={{ "--d": `${k * 0.08}s` } as React.CSSProperties}>
+                <span className="m-work-img"><Img src={w.cover} sizes="96px" /></span>
+                <div><small>{w.cat}</small><h3>{w.n}</h3></div>
               </li>
             ))}
-          </ol>
+          </ul>
         </div>
         <div className="m-platrow" data-m-reveal="">
           <span>{c.platT}</span>
@@ -76,27 +93,42 @@ export function Included({ l }: P) {
   );
 }
 
-/* optional services that extend the package (the original offer's add-ons); each starts a WhatsApp request
-   for the package together with that service */
+/* media packages: the starting price, the seven service categories (the first — social media — is the core package
+   detailed in the next section) and the site's other services; every request opens WhatsApp with that service */
 export function Addons({ l }: P) {
   const c = COPY[l].add;
+  const wa = (t: string) => waHref(`${COPY[l].waText} ${c.waWith} ${t}`);
   return (
     <section className="m-sec m-addons" id="addons" aria-labelledby="mAddT">
       <div className="container">
         <Head k={c.k} t={c.t} p={c.p} id="mAddT" />
-        <ul className="m-add-grid">
-          {addons(l).map((a, k) => (
-            <li key={a.id} data-m-reveal="" style={{ "--d": `${(k % 4) * 0.06}s` } as React.CSSProperties}>
-              <span className="m-add-ic"><Ms name={a.icon} /></span>
+        <div className="m-pricebar" data-m-reveal="">
+          <PriceTag l={l} p={c.price} />
+          <p className="m-pricenote"><Ms name="info" />{c.priceNote}</p>
+        </div>
+        <ol className="m-add-grid">
+          {packages(l).map((a, k) => (
+            <li key={a.id} className={k === 0 ? "hl" : undefined} data-m-reveal="" style={{ "--d": `${(k % 4) * 0.06}s` } as React.CSSProperties}>
+              <span className="m-inc-top"><span className="m-add-ic"><Ms name={a.icon} /></span><small dir="ltr">{two(k + 1)}</small></span>
               <h3>{a.t}</h3>
               <p>{a.d}</p>
-              <ul className="m-deliv">{a.f.map((x) => <li key={x}><Ms name="check_circle" />{x}</li>)}</ul>
-              <a className="m-go" href={waHref(`${COPY[l].waText} ${c.waWith} ${a.t}`)} target="_blank" rel="noopener" data-service={a.id} aria-label={`${c.cta}: ${a.t}`}>
+              {a.f.length > 0 && <ul className="m-deliv">{a.f.map((x) => <li key={x}><Ms name="check_circle" />{x}</li>)}</ul>}
+              <a className="m-go" href={wa(a.t)} target="_blank" rel="noopener" data-service={a.id} aria-label={`${c.cta}: ${a.t}`}>
                 {c.cta}<Ms name="arrow_forward" className="flip m-go-ar" />
               </a>
             </li>
           ))}
-        </ul>
+        </ol>
+        <div className="m-extras" data-m-reveal="">
+          <span>{c.extraT}</span>
+          <ul>
+            {extras(l).map((x) => (
+              <li key={x.id}>
+                <a href={wa(x.t)} target="_blank" rel="noopener" data-service={x.id}><Ms name={x.icon} />{x.t}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
