@@ -2,18 +2,20 @@
 import { useEffect } from "react";
 import { SITE_URL } from "@/lib/siteUrl";
 
-/* Google tag (GA4), loaded once after hydration and only when NEXT_PUBLIC_GA_ID is set at build time and the page is
+/* Google Tag Manager, loaded once after hydration and only when NEXT_PUBLIC_GTM_ID is set at build time and the page is
    served from the production host (local dev, `next start` test runs and previews send nothing).
-   SPA page views come from GA4 enhanced measurement (browser history changes).
+   The container holds the GA4 Google tag (page views, including SPA navigations through enhanced measurement) and a
+   GA4 event tag fired by the conversion events below.
    Conversion events carry no personal data: only the event name, the page path and, where known, the service id. */
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 declare global {
-  interface Window { gtag?: (...args: unknown[]) => void; dataLayer?: unknown[] }
+  interface Window { dataLayer?: Record<string, unknown>[] }
 }
 
 export function track(event: string, params: Record<string, string | undefined> = {}) {
-  window.gtag?.("event", event, { page_path: location.pathname, ...params });
+  // service is reset on every push so a value from an earlier event never carries over in GTM's data layer model
+  window.dataLayer?.push({ event, page_path: location.pathname, service: undefined, ...params });
 }
 
 /* contact links anywhere on the page (header, FAB, footer, contact section, end CTA) */
@@ -30,15 +32,11 @@ function onClick(e: MouseEvent) {
 
 export default function Analytics() {
   useEffect(() => {
-    if (!GA_ID || location.hostname !== new URL(SITE_URL).hostname || window.gtag) return;
-    window.dataLayer = window.dataLayer || [];
-    // gtag.js reads the `arguments` objects pushed by this exact function shape
-    window.gtag = function () { window.dataLayer!.push(arguments); }; // eslint-disable-line prefer-rest-params
-    window.gtag("js", new Date());
-    window.gtag("config", GA_ID);
+    if (!GTM_ID || location.hostname !== new URL(SITE_URL).hostname || window.dataLayer) return;
+    window.dataLayer = [{ "gtm.start": Date.now(), event: "gtm.js" }];
     const s = document.createElement("script");
     s.async = true;
-    s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+    s.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
     document.head.appendChild(s);
     document.addEventListener("click", onClick, { capture: true });
     return () => document.removeEventListener("click", onClick, { capture: true });

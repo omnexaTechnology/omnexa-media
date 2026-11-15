@@ -153,7 +153,7 @@ test.describe("seo metadata", () => {
     await page.goto("/ar");
     await page.waitForTimeout(1500);
     expect(hits).toEqual([]);
-    expect(await page.evaluate(() => typeof (window as { gtag?: unknown }).gtag)).toBe("undefined");
+    expect(await page.evaluate(() => typeof (window as { dataLayer?: unknown }).dataLayer)).toBe("undefined");
   });
 
   test("robots.txt and sitemap.xml use the production origin", async ({ request }) => {
