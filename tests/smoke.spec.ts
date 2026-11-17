@@ -156,6 +156,12 @@ test.describe("seo metadata", () => {
     expect(await page.evaluate(() => typeof (window as { dataLayer?: unknown }).dataLayer)).toBe("undefined");
   });
 
+  test("GTM container is set at build time (noscript fallback at the top of <body>)", async ({ request }) => {
+    const html = await (await request.get("/en")).text();
+    // Next.js puts its own hidden <div> first; the fallback must come before any page content
+    expect(html).toMatch(/<body[^>]*>(<div hidden="">.*?<\/div>)?<noscript><iframe src="https:\/\/www\.googletagmanager\.com\/ns\.html\?id=GTM-[A-Z0-9]+"/);
+  });
+
   test("robots.txt and sitemap.xml use the production origin", async ({ request }) => {
     const robots = await (await request.get("/robots.txt")).text();
     expect(robots).not.toContain("localhost");
