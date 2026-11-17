@@ -11,6 +11,15 @@ import Effects from "@/components/media299/Effects";
 import LandingFooter from "@/components/media299/LandingFooter";
 import "@/styles/media299.css";
 
+
+
+
+
+
+
+
+
+
 /* /ads — Omnexa Media packages: an independent campaign page (moved from /299, which redirects here). Offer structure from omnexa.sa/ar/299,
    content from Omnexa Media's own services, visual identity from the Media site (tokens, type, buttons, icons). */
 
