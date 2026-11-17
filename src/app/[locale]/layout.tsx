@@ -11,7 +11,7 @@ import Fab from "@/components/layout/Fab";
 import Contact from "@/components/sections/Contact";
 import MotionLayer from "@/components/motion/MotionLayer";
 import Analytics from "@/components/layout/Analytics";
-import { GTM_ID } from "@/lib/gtm";
+import { GTM_ID, gtmHeadJs } from "@/lib/gtm";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -44,6 +44,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
     <html lang={locale} dir={dirOf(locale)} data-theme="light" className={`${plex.variable} ${cairo.variable} ${icons.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: PREPAINT_JS }} />
+        <script dangerouslySetInnerHTML={{ __html: gtmHeadJs(new URL(SITE_URL).hostname) }} />
       </head>
       {/* body.on-project is set by an inline script on detail pages before hydration */}
       <body suppressHydrationWarning>

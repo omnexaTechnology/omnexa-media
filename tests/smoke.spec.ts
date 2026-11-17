@@ -156,8 +156,12 @@ test.describe("seo metadata", () => {
     expect(await page.evaluate(() => typeof (window as { dataLayer?: unknown }).dataLayer)).toBe("undefined");
   });
 
-  test("GTM container is set at build time (noscript fallback at the top of <body>)", async ({ request }) => {
+  test("GTM container is set at build time (snippet in <head>, noscript fallback at the top of <body>)", async ({ request }) => {
     const html = await (await request.get("/en")).text();
+    // in the page source, not added after hydration: GTM's "Test your website" check reads the HTML
+    const head = html.slice(0, html.indexOf("</head>"));
+    expect(head).toContain("https://www.googletagmanager.com/gtm.js?id=");
+    expect(head).toMatch(/'dataLayer',"GTM-[A-Z0-9]+"\)/);
     // Next.js puts its own hidden <div> first; the fallback must come before any page content
     expect(html).toMatch(/<body[^>]*>(<div hidden="">.*?<\/div>)?<noscript><iframe src="https:\/\/www\.googletagmanager\.com\/ns\.html\?id=GTM-[A-Z0-9]+"/);
   });
