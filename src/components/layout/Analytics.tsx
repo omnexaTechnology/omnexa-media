@@ -1,10 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import { SITE_URL } from "@/lib/siteUrl";
-import { GTM_ID } from "@/lib/gtm";
 
-/* Google Tag Manager, loaded once after hydration and only when the page is served from the production host
-   (local dev, `next start` test runs and previews send nothing).
+/* Conversion events for Google Tag Manager, which the <head> snippet (lib/gtm.ts) loads on the production host only.
    The container holds the GA4 Google tag (page views, including SPA navigations through enhanced measurement); the
    conversion events below reach GA4 once the container has a GA4 event tag for them.
    Conversion events carry no personal data: only the event name, the page path and, where known, the service id. */
@@ -32,12 +29,8 @@ function onClick(e: MouseEvent) {
 
 export default function Analytics() {
   useEffect(() => {
-    if (location.hostname !== new URL(SITE_URL).hostname || window.dataLayer) return;
-    window.dataLayer = [{ "gtm.start": Date.now(), event: "gtm.js" }];
-    const s = document.createElement("script");
-    s.async = true;
-    s.src = `https://www.googletagmanager.com/gtm.js?id=${GTM_ID}`;
-    document.head.appendChild(s);
+    // GTM itself is loaded by the <head> snippet (lib/gtm.ts), which creates dataLayer only on the production host
+    if (!window.dataLayer) return;
     document.addEventListener("click", onClick, { capture: true });
     return () => document.removeEventListener("click", onClick, { capture: true });
   }, []);
