@@ -11,6 +11,7 @@ import Fab from "@/components/layout/Fab";
 import Contact from "@/components/sections/Contact";
 import MotionLayer from "@/components/motion/MotionLayer";
 import Analytics from "@/components/layout/Analytics";
+import { GTM_ID } from "@/lib/gtm";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -46,6 +47,10 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
       </head>
       {/* body.on-project is set by an inline script on detail pages before hydration */}
       <body suppressHydrationWarning>
+        {/* GTM's no-JavaScript fallback, right after <body> as Google documents it */}
+        <noscript>
+          <iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style={{ display: "none", visibility: "hidden" }} />
+        </noscript>
         <NextIntlClientProvider>
           <Header />
           <main id="main">

@@ -1,0 +1,78 @@
+{
+  "exportFormatVersion": 2,
+  "containerVersion": {
+    "tag": [
+      {
+        "tagId": "11",
+        "name": "GA4 - Conversion events",
+        "type": "gaawe",
+        "parameter": [
+          { "type": "TEMPLATE", "key": "eventName", "value": "{{Event}}" },
+          { "type": "TEMPLATE", "key": "measurementIdOverride", "value": "G-W3XN5NQR7S" },
+          { "type": "BOOLEAN", "key": "sendEcommerceData", "value": "false" },
+          {
+            "type": "LIST",
+            "key": "eventSettingsTable",
+            "list": [
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "parameter", "value": "service" },
+                  { "type": "TEMPLATE", "key": "parameterValue", "value": "{{DLV - service}}" }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  { "type": "TEMPLATE", "key": "parameter", "value": "page_path" },
+                  { "type": "TEMPLATE", "key": "parameterValue", "value": "{{DLV - page_path}}" }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": ["1"],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      }
+    ],
+    "trigger": [
+      {
+        "triggerId": "1",
+        "name": "CE - conversion events",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "MATCH_REGEX",
+            "parameter": [
+              { "type": "TEMPLATE", "key": "arg0", "value": "{{_event}}" },
+              { "type": "TEMPLATE", "key": "arg1", "value": "^(booking_submit|whatsapp_click|phone_click|email_click|service_cta_click)$" }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "variableId": "12",
+        "name": "DLV - service",
+        "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "service" }
+        ]
+      },
+      {
+        "variableId": "13",
+        "name": "DLV - page_path",
+        "type": "v",
+        "parameter": [
+          { "type": "INTEGER", "key": "dataLayerVersion", "value": "2" },
+          { "type": "BOOLEAN", "key": "setDefaultValue", "value": "false" },
+          { "type": "TEMPLATE", "key": "name", "value": "page_path" }
+        ]
+      }
+    ],
+    "builtInVariable": [{ "type": "EVENT", "name": "Event" }]
+  }
+}
